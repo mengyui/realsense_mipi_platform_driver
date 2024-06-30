@@ -54,13 +54,36 @@ if [[ "$JETPACK_VERSION" == "6.0" ]]; then
     apply_external_patches $1 hardware/nvidia/t23x/nv-public
 else
     apply_external_patches $1 hardware/nvidia/platform/t19x/galen/kernel-dts
+    apply_external_patches $1 hardware/nvidia/platform/t23x/concord/kernel-dts
+    apply_external_patches $1 hardware/nvidia/platform/t23x/p3768/kernel-dts
 fi
 
 # For a common driver for JP4 + JP5 we override the i2c driver and ignore the previous that was created from patches
 cp $DEVDIR/kernel/realsense/d4xx.c $DEVDIR/$1/${D4XX_SRC_DST}/drivers/media/i2c/
 if [[ "$JETPACK_VERSION" == "6.0" ]]; then
     # jp6 overlay
-    cp $DEVDIR/hardware/realsense/tegra234-camera-d4xx-overlay*.dts $DEVDIR/$1/hardware/nvidia/t23x/nv-public/overlay/
+    cp $DEVDIR/hardware/realsense/tegra234-camera-d4xx-overlay.dts $DEVDIR/$1/hardware/nvidia/t23x/nv-public/overlay/
+    cp $DEVDIR/hardware/realsense/tegra234-camera-d4xx-overlay-dual.dts $DEVDIR/$1/hardware/nvidia/t23x/nv-public/overlay/
+    cp $DEVDIR/hardware/realsense/tegra234-p3737-camera-d4xx-overlay-fg96-8ch-dual.dts $DEVDIR/$1/hardware/nvidia/t23x/nv-public/overlay/
+    cp $DEVDIR/hardware/realsense/tegra234-p3737-camera-d4xx-overlay-fg96-8ch-single.dts $DEVDIR/$1/hardware/nvidia/t23x/nv-public/overlay/
+    cp $DEVDIR/hardware/realsense/tegra234-p3768-camera-d4xx-overlay-fg96-2ch-dual.dts $DEVDIR/$1/hardware/nvidia/t23x/nv-public/overlay/
+    cp $DEVDIR/hardware/realsense/tegra234-p3768-camera-d4xx-overlay-fg96-2ch-single.dts $DEVDIR/$1/hardware/nvidia/t23x/nv-public/overlay/
 else
     cp $DEVDIR/hardware/realsense/$JP5_D4XX_DTSI $DEVDIR/$1/hardware/nvidia/platform/t19x/galen/kernel-dts/common/tegra194-camera-d4xx.dtsi
+
+    cp $DEVDIR/hardware/realsense/tegra194-camera-d4xx-single.dtsi $DEVDIR/$1/hardware/nvidia/platform/t19x/galen/kernel-dts/common/tegra194-camera-d4xx-single.dtsi
+    cp $DEVDIR/hardware/realsense/tegra194-camera-d4xx-dual.dtsi $DEVDIR/$1/hardware/nvidia/platform/t19x/galen/kernel-dts/common/tegra194-camera-d4xx-dual.dtsi
+    cp $DEVDIR/hardware/realsense/tegra194-p2822-camera-d4xx-fg96-8ch-single.dtsi $DEVDIR/$1/hardware/nvidia/platform/t19x/galen/kernel-dts/common/tegra194-p2822-camera-d4xx-fg96-8ch-single.dtsi
+    cp $DEVDIR/hardware/realsense/tegra194-p2822-camera-d4xx-fg96-8ch-dual.dtsi $DEVDIR/$1/hardware/nvidia/platform/t19x/galen/kernel-dts/common/tegra194-p2822-camera-d4xx-fg96-8ch-dual.dtsi
+    cp $DEVDIR/hardware/realsense/tegra234-p3737-camera-d4xx-fg96-8ch-single.dtsi $DEVDIR/$1/hardware/nvidia/platform/t23x/concord/kernel-dts/cvb/tegra234-p3737-camera-d4xx-fg96-8ch-single.dtsi
+    cp $DEVDIR/hardware/realsense/tegra234-p3737-camera-d4xx-fg96-8ch-dual.dtsi $DEVDIR/$1/hardware/nvidia/platform/t23x/concord/kernel-dts/cvb/tegra234-p3737-camera-d4xx-fg96-8ch-dual.dtsi
+    cp $DEVDIR/hardware/realsense/tegra234-p3768-camera-d4xx-fg96-2ch-single.dtsi $DEVDIR/$1/hardware/nvidia/platform/t23x/p3768/kernel-dts/cvb/tegra234-p3768-camera-d4xx-fg96-2ch-single.dtsi
+    cp $DEVDIR/hardware/realsense/tegra234-p3768-camera-d4xx-fg96-2ch-dual-depth-ir.dtsi $DEVDIR/$1/hardware/nvidia/platform/t23x/p3768/kernel-dts/cvb/tegra234-p3768-camera-d4xx-fg96-2ch-dual-depth-ir.dtsi
+    cp $DEVDIR/hardware/realsense/tegra234-p3768-camera-d4xx-fg96-2ch-dual-depth-color.dtsi $DEVDIR/$1/hardware/nvidia/platform/t23x/p3768/kernel-dts/cvb/tegra234-p3768-camera-d4xx-fg96-2ch-dual-depth-color.dtsi
+    echo
+    echo "!!!!!!!!"
+    echo "Please EDIT the following file(s) to enable your selected deserializer board."
+    echo "  hardware/nvidia/platform/t19x/galen/kernel-dts/tegra194-p2888-0001-p2822-0000.dts"
+    echo "  hardware/nvidia/platform/t23x/concord/kernel-dts/tegra234-p3701-0000-p3737-0000.dts"
+    echo "  hardware/nvidia/platform/t23x/p3768/kernel-dts/cvb/tegra234-p3768-0000-a0.dtsi"
 fi

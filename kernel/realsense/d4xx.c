@@ -540,7 +540,7 @@ static int ds5_write(struct ds5 *state, u16 reg, u16 val)
 		if (state->dfu_dev.dfu_state_flag == DS5_DFU_IDLE)
 			dev_dbg(&state->client->dev, "%s(): i2c write 0x%04x: 0x%x\n",
 				__func__, reg, val);
-
+	msleep_range(1);
 	return ret;
 }
 
@@ -572,7 +572,7 @@ static int ds5_read(struct ds5 *state, u16 reg, u16 *val)
 			dev_dbg(&state->client->dev, "%s(): i2c read 0x%04x: 0x%x\n",
 					__func__, reg, *val);
 	}
-
+	msleep_range(1);
 	return ret;
 }
 
@@ -2882,6 +2882,7 @@ static int ds5_board_setup(struct ds5 *state)
 	struct device_node *dser_node;
 	struct i2c_client *dser_i2c = NULL;
 	struct device_node *gmsl;
+	struct device_node *d4m_mux_node;
 	int value = 0xFFFF;
 	const char *str_value;
 	int err;
@@ -2898,6 +2899,14 @@ static int ds5_board_setup(struct ds5 *state)
 	if (err < 0) {
 		dev_err(dev, "def-addr not found\n");
 		goto error;
+	}
+
+	d4m_mux_node = of_parse_phandle(node, "intel,d4m-mux-device", 0);
+	if (d4m_mux_node) {
+		err = of_property_read_u32(d4m_mux_node, "reg", &state->g_ctx.sdev_reg);
+		state->client->addr = state->g_ctx.sdev_reg;
+	} else {
+		dev_err(dev, "intel,d4m-mux-device not found!\n");
 	}
 
 	ser_node = of_parse_phandle(node, "maxim,gmsl-ser-device", 0);
@@ -3025,6 +3034,14 @@ static int ds5_board_setup(struct ds5 *state)
 		goto error;
 	}
 	state->g_ctx.num_csi_lanes = value;
+
+	err = of_property_read_u32(gmsl, "ser-mux", &value);
+	if (err < 0) {
+		dev_err(dev, "ser-mux not found\n");
+		goto error;
+	}
+	state->g_ctx.ser_mux = value;
+
 	state->g_ctx.s_dev = dev;
 
 	for (i = 0; i < MAX_DEV_NUM; i++) {
@@ -3215,9 +3232,9 @@ static int ds5_gmsl_serdes_setup(struct ds5 *state)
 
 	mutex_lock(&serdes_lock__);
 
-	max9296_power_off(state->dser_dev);
-	/* For now no separate power on required for serializer device */
-	max9296_power_on(state->dser_dev);
+	// 	max9296_power_off(state->dser_dev);
+	// 	/* For now no separate power on required for serializer device */
+	// 	max9296_power_on(state->dser_dev);
 
 	dev_dbg(dev, "Setup SERDES addressing and control pipeline\n");
 	/* setup serdes addressing and control pipeline */

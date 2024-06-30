@@ -9,27 +9,27 @@
 		num-channels = <4>;
 
 		ports {
-			#address-cells = <0x1>;
-			#size-cells = <0x0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
 
 			port@0 {
 				reg = <0>;
-				status = "ok";
+				status = "okay";
 
 				vi_in0: endpoint {
-					status = "ok";
+					status = "okay";
+					vc-id = <0>;
 					port-index = <0>;
 					bus-width = <2>;
-					vc-id = <0>;
 					remote-endpoint = <&csi_out0>;
 				};
 			};
 			port@1 {
 				reg = <1>;
-				status = "ok";
+				status = "okay";
 
 				vi_in1: endpoint {
-					status = "ok";
+					status = "okay";
 					vc-id = <1>;
 					port-index = <0>;
 					bus-width = <2>;
@@ -38,25 +38,25 @@
 			};
 			port@2 {
 				reg = <2>;
-				status = "ok";
+				status = "okay";
 
 				vi_in2: endpoint {
-					status = "ok";
+					status = "okay";
+					vc-id = <2>;
 					port-index = <0>;
 					bus-width = <2>;
-					vc-id = <2>;
 					remote-endpoint = <&csi_out2>;
 				};
 			};
 			port@3 {
 				reg = <3>;
-				status = "ok";
+				status = "okay";
 
 				vi_in3: endpoint {
-					status = "ok";
+					status = "okay";
+					vc-id = <3>;
 					port-index = <0>;
 					bus-width = <2>;
-					vc-id = <3>;
 					remote-endpoint = <&csi_out3>;
 				};
 			};
@@ -64,10 +64,10 @@
 	};
 
 	i2c@3180000 {
-		status = "ok";
+		status = "okay";
 		clock-frequency = <100000>;
 		tca9548@72 {
-			status = "ok";
+			status = "okay";
 			reg = <0x72>;
 			compatible = "nxp,pca9548";
 			#address-cells = <1>;
@@ -79,12 +79,12 @@
 			vcc_lp = "vcc";
 			i2c@0 {
 				reg = <0x0>;
-				#address-cells = <0x1>;
 				i2c-mux,deselect-on-exit;
-				#size-cells = <0x0>;
+				#address-cells = <1>;
+				#size-cells = <0>;
 
 				dser: max9296@48 {
-					status = "ok";
+					status = "okay";
 					reg = <0x48>;
 					compatible = "maxim,max9296";
 					csi-mode = "2x4";
@@ -93,10 +93,11 @@
 				};
 
 				ser_prim: max9295_prim@40 {
-					status = "ok";
+					status = "okay";
 					reg = <0x40>;
 					compatible = "maxim,max9295";
 					is-prim-ser;
+					ser-mux = <0>;
 				};
 
 				ser_a: max9295_a@42 {
@@ -106,10 +107,10 @@
 				};
 
 				d4m0: d4m@1a {
-					status = "ok";
-					def-addr = <0x10>;
+					status = "okay";
 					reg = <0x1a>;
 					compatible = "intel,d4xx";
+					def-addr = <0x10>;
 					vcc-supply = <&p2822_vdd_1v8_cvb>;
 					cam-type = "Depth";
 					maxim,gmsl-ser-device = <&ser_a>;
@@ -147,22 +148,23 @@
 						st-vc = <0>;
 						vc-id = <0>;
 						num-lanes = <2>;
+						ser-mux = <0>;
 					};
 				};
 			};
 
 			i2c@1 {
-				status = "ok";
+				status = "okay";
 				reg = <0x3>; 	// line 18-19 of the I2C switch
-				#address-cells = <0x1>;
 				i2c-mux,deselect-on-exit;
-				#size-cells = <0x0>;
+				#address-cells = <1>;
+				#size-cells = <0>;
 
 				d4m1: d4m@1a {
-					status = "ok";
-					def-addr = <0x10>;
+					status = "okay";
 					reg = <0x1a>;
 					compatible = "intel,d4xx";
+					def-addr = <0x10>;
 					vcc-supply = <&p2822_vdd_1v8_cvb>;
 					cam-type = "RGB";
 					maxim,gmsl-ser-device = <&ser_a>;
@@ -174,7 +176,7 @@
 						port@0 {
 							reg = <0>;
 							d4m1_out: endpoint {
-								port-index = <1>;
+								port-index = <0>;
 								bus-width = <2>;
 								remote-endpoint = <&csi_in1>;
 							};
@@ -186,7 +188,7 @@
 						csi_pixel_bit_depth = "16";
 						active_w = "1920";
 						active_h = "1080";
-						tegra_sinterface = "serial_e";
+						tegra_sinterface = "serial_a";
 						mclk_khz = "24000";
 						pix_clk_hz = "74250000";
 						line_length = "1280"; /* 2200 */
@@ -200,20 +202,21 @@
 						st-vc = <0>;
 						vc-id = <1>;
 						num-lanes = <2>;
+						ser-mux = <0>;
 					};
 				};
 			};
 			i2c@2 {
 				reg = <0x4>;	// line 4 of the I2C switch
-				#address-cells = <0x1>;
 				i2c-mux,deselect-on-exit;
-				#size-cells = <0x0>;
+				#address-cells = <1>;
+				#size-cells = <0>;
 
 				d4m2: d4m@1a {
-					status = "ok";
-					def-addr = <0x10>;
+					status = "okay";
 					reg = <0x1a>;
 					compatible = "intel,d4xx";
+					def-addr = <0x10>;
 					vcc-supply = <&p2822_vdd_1v8_cvb>;
 					cam-type = "Y8";
 					maxim,gmsl-ser-device = <&ser_a>;
@@ -225,7 +228,7 @@
 						port@0 {
 							reg = <0>;
 							d4m2_out: endpoint {
-								port-index = <2>;
+								port-index = <0>;
 								bus-width = <2>;
 								remote-endpoint = <&csi_in2>;
 							};
@@ -238,7 +241,7 @@
 						csi_pixel_bit_depth = "16";
 						active_w = "1280";
 						active_h = "720";
-						tegra_sinterface = "serial_b";
+						tegra_sinterface = "serial_a";
 						mclk_khz = "24000";
 						pix_clk_hz = "74250000";
 						line_length = "1280"; /* 2200 */
@@ -252,20 +255,21 @@
 						st-vc = <0>;
 						vc-id = <2>;
 						num-lanes = <2>;
+						ser-mux = <0>;
 					};
 				};
 			};
 			i2c@3 {
 				reg = <0x5>;	// line 4 of the I2C switch
-				#address-cells = <0x1>;
 				i2c-mux,deselect-on-exit;
-				#size-cells = <0x0>;
+				#address-cells = <1>;
+				#size-cells = <0>;
 
 				d4m3: d4m@1a {
-					status = "ok";
-					def-addr = <0x10>;
+					status = "okay";
 					reg = <0x1a>;
 					compatible = "intel,d4xx";
+					def-addr = <0x10>;
 					vcc-supply = <&p2822_vdd_1v8_cvb>;
 					cam-type = "IMU";
 					maxim,gmsl-ser-device = <&ser_a>;
@@ -277,7 +281,7 @@
 						port@0 {
 							reg = <0>;
 							d4m3_out: endpoint {
-								port-index = <3>;
+								port-index = <0>;
 								bus-width = <2>;
 								remote-endpoint = <&csi_in3>;
 							};
@@ -289,7 +293,7 @@
 						csi_pixel_bit_depth = "16";
 						active_w = "640";
 						active_h = "480";
-						tegra_sinterface = "serial_b";
+						tegra_sinterface = "serial_a";
 						mclk_khz = "24000";
 						pix_clk_hz = "74250000";
 						line_length = "1280"; /* 2200 */
@@ -303,6 +307,7 @@
 						st-vc = <0>;
 						vc-id = <3>;
 						num-lanes = <2>;
+						ser-mux = <0>;
 					};
 				};
 			};
@@ -311,25 +316,25 @@
 
 	host1x@13e00000 {
 		nvcsi@15a00000 {
-			#address-cells = <0x1>;
-			#size-cells = <0x0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
 
 			num-channels = <4>;
 
 			channel@0 {
 				reg = <0x0>;
-				status = "ok";
+				status = "okay";
 
 				ports {
-					#address-cells = <0x1>;
-					#size-cells = <0x0>;
+					#address-cells = <1>;
+					#size-cells = <0>;
 
 					port@0 {
 						reg = <0>;
-						status = "ok";
+						status = "okay";
 
 						csi_in0: endpoint@0 {
-							status = "ok";
+							status = "okay";
 							port-index = <0>;
 							bus-width = <2>;
 							remote-endpoint = <&d4m0_out>;
@@ -337,29 +342,28 @@
 					};
 					port@1 {
 						reg = <1>;
-						status = "ok";
+						status = "okay";
 						csi_out0: endpoint@1 {
-							status = "ok";
+							status = "okay";
 							remote-endpoint = <&vi_in0>;
 						};
 					};
-
 				};
 			};
 			channel@1 {
 				reg = <0x1>;
-				status = "ok";
+				status = "okay";
 
 				ports {
-					#address-cells = <0x1>;
-					#size-cells = <0x0>;
+					#address-cells = <1>;
+					#size-cells = <0>;
 
 					port@0 {
 						reg = <0>;
-						status = "ok";
+						status = "okay";
 
 						csi_in1: endpoint@2 {
-							status = "ok";
+							status = "okay";
 							port-index = <0>;
 							bus-width = <2>;
 							remote-endpoint = <&d4m1_out>;
@@ -367,9 +371,9 @@
 					};
 					port@1 {
 						reg = <1>;
-						status = "ok";
+						status = "okay";
 						csi_out1: endpoint@3 {
-							status = "ok";
+							status = "okay";
 							remote-endpoint = <&vi_in1>;
 						};
 					};
@@ -378,18 +382,18 @@
 			};
 			channel@2 {
 				reg = <0x2>;
-				status = "ok";
+				status = "okay";
 
 				ports {
-					#address-cells = <0x1>;
-					#size-cells = <0x0>;
+					#address-cells = <1>;
+					#size-cells = <0>;
 
 					port@0 {
 						reg = <0>;
-						status = "ok";
+						status = "okay";
 
 						csi_in2: endpoint@4 {
-							status = "ok";
+							status = "okay";
 							port-index = <0>;
 							bus-width = <2>;
 							remote-endpoint = <&d4m2_out>;
@@ -397,9 +401,9 @@
 					};
 					port@1 {
 						reg = <1>;
-						status = "ok";
+						status = "okay";
 						csi_out2: endpoint@5 {
-							status = "ok";
+							status = "okay";
 							remote-endpoint = <&vi_in2>;
 						};
 					};
@@ -407,18 +411,18 @@
 			};
 			channel@3 {
 				reg = <0x3>;
-				status = "ok";
+				status = "okay";
 
 				ports {
-					#address-cells = <0x1>;
-					#size-cells = <0x0>;
+					#address-cells = <1>;
+					#size-cells = <0>;
 
 					port@0 {
 						reg = <0>;
-						status = "ok";
+						status = "okay";
 
 						csi_in3: endpoint@6 {
-							status = "ok";
+							status = "okay";
 							port-index = <0>;
 							bus-width = <2>;
 							remote-endpoint = <&d4m3_out>;
@@ -426,9 +430,9 @@
 					};
 					port@1 {
 						reg = <1>;
-						status = "ok";
+						status = "okay";
 						csi_out3: endpoint@7 {
-							status = "ok";
+							status = "okay";
 							remote-endpoint = <&vi_in3>;
 						};
 					};

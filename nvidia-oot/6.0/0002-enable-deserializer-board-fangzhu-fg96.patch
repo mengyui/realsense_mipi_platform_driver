@@ -1,0 +1,148 @@
+diff --git a/drivers/media/i2c/max9295.c b/drivers/media/i2c/max9295.c
+index e7c77845c..16067c5e7 100644
+--- a/drivers/media/i2c/max9295.c
++++ b/drivers/media/i2c/max9295.c
+@@ -103,7 +103,9 @@ struct max9295 {
+ 	__u32 pst2_ref;
+ };
+ 
+-static struct max9295 *prim_priv__;
++/* FG96-8CH: 4xMAX9296 -> 4x prim MAX9295*/
++#define MAX_CHANNEL_NUM 4
++static struct max9295 *prim_priv__[MAX_CHANNEL_NUM] = {};
+ 
+ struct map_ctx {
+ 	u8 dt;
+@@ -301,9 +303,9 @@ int max9295_setup_control(struct device *dev)
+ 
+ 	g_ctx = priv->g_client.g_ctx;
+ 
+-	if (prim_priv__) {
++	if (prim_priv__[g_ctx->ser_mux]) {
+ 		/* update address reassingment */
+-		max9295_write_reg(&prim_priv__->i2c_client->dev,
++		max9295_write_reg(&prim_priv__[g_ctx->ser_mux]->i2c_client->dev,
+ 				MAX9295_DEV_ADDR, (g_ctx->ser_reg << 1));
+ 	}
+ 
+@@ -340,16 +342,16 @@ int max9295_setup_control(struct device *dev)
+ 		i2c_ovrd[i+1] += (i < 4) ? offset1 : offset2;
+ 
+ 		/* i2c passthrough2 must be configured once for all devices */
+-		if ((i2c_ovrd[i] == 0x8B) && prim_priv__ &&
+-				prim_priv__->pst2_ref)
++		if ((i2c_ovrd[i] == 0x8B) && prim_priv__[g_ctx->ser_mux] &&
++				prim_priv__[g_ctx->ser_mux]->pst2_ref)
+ 			continue;
+ 
+ 		max9295_write_reg(dev, i2c_ovrd[i], i2c_ovrd[i+1]);
+ 	}
+ 
+ 	/* dev addr pass-through2 ref */
+-	if (prim_priv__)
+-		prim_priv__->pst2_ref++;
++	if (prim_priv__[g_ctx->ser_mux])
++		prim_priv__[g_ctx->ser_mux]->pst2_ref++;
+ 
+ 	max9295_write_reg(dev, MAX9295_I2C4_ADDR, (g_ctx->sdev_reg << 1));
+ 	max9295_write_reg(dev, MAX9295_I2C5_ADDR, (g_ctx->sdev_def << 1));
+@@ -380,13 +382,14 @@ int max9295_reset_control(struct device *dev)
+ 
+ 	priv->g_client.st_done = false;
+ 
+-	if (prim_priv__) {
+-		prim_priv__->pst2_ref--;
++	if (prim_priv__[priv->g_client.g_ctx->ser_mux]) {
++		prim_priv__[priv->g_client.g_ctx->ser_mux]->pst2_ref--;
+ 
+ 		max9295_write_reg(dev, MAX9295_DEV_ADDR,
+-					(prim_priv__->def_addr << 1));
++					(prim_priv__[priv->g_client.g_ctx->ser_mux]->def_addr << 1));
+ 
+-		max9295_write_reg(&prim_priv__->i2c_client->dev,
++		if (prim_priv__[priv->g_client.g_ctx->ser_mux]->pst2_ref == 0)
++			max9295_write_reg(&prim_priv__[priv->g_client.g_ctx->ser_mux]->i2c_client->dev,
+ 					MAX9295_CTRL0_ADDR, MAX9295_RESET_ALL);
+ 	}
+ 
+@@ -630,10 +633,21 @@ static int max9295_probe(struct i2c_client *client,
+ 	mutex_init(&priv->lock);
+ 
+ 	if (of_get_property(node, "is-prim-ser", NULL)) {
+-		if (prim_priv__) {
+-			dev_err(&client->dev,
+-				"prim-ser already exists\n");
+-				return -EEXIST;
++		int ser_mux = 0;
++		err = of_property_read_u32(node, "ser-mux", &ser_mux);
++		if (err < 0) {
++			dev_err(&client->dev, "ser-mux not found\n");
++			return -EINVAL;
++		}
++
++		if (ser_mux >= MAX_CHANNEL_NUM) {
++			dev_err(&client->dev, "ser-mux is invalid.\n");
++			return -EINVAL;
++		}
++
++		if (prim_priv__[ser_mux]) {
++			dev_err(&client->dev, "prim-ser already exists\n");
++			return -EEXIST;
+ 		}
+ 
+ 		err = of_property_read_u32(node, "reg", &priv->def_addr);
+@@ -642,7 +656,7 @@ static int max9295_probe(struct i2c_client *client,
+ 			return -EINVAL;
+ 		}
+ 
+-		prim_priv__ = priv;
++		prim_priv__[ser_mux] = priv;
+ 	}
+ 
+ 	dev_set_drvdata(&client->dev, priv);
+diff --git a/drivers/media/i2c/max9296.c b/drivers/media/i2c/max9296.c
+index 97559460a..01e960471 100644
+--- a/drivers/media/i2c/max9296.c
++++ b/drivers/media/i2c/max9296.c
+@@ -1047,6 +1047,7 @@ static int max9296_probe(struct i2c_client *client,
+ {
+ 	struct max9296 *priv;
+ 	int err = 0;
++	struct device_node *node = client->dev.of_node;
+ 
+ 	dev_info(&client->dev, "[MAX9296]: probing GMSL Deserializer\n");
+ 
+@@ -1078,6 +1079,21 @@ static int max9296_probe(struct i2c_client *client,
+ 
+ 	dev_set_drvdata(&client->dev, priv);
+ 
++{
++	max9296_power_off(&client->dev);
++	msleep(5);
++	max9296_power_on(&client->dev);
++	msleep(20);
++	if (of_get_property(node, "is-fg96-2ch", NULL)) {
++		max9296_write_reg(&client->dev, 0x02BC, 0x90);
++		msleep(10);
++		max9296_write_reg(&client->dev, 0x02BC, 0x80); //Enable MFP4 Output low
++		max9296_write_reg(&client->dev, 0x02BD, 0x84); //Enable MFP4 Output Pulldown 
++		max9296_write_reg(&client->dev, 0x0005, 0x80);
++		msleep(50);
++	}
++}
++
+ 	/* dev communication gets validated when GMSL link setup is done */
+ 	dev_info(&client->dev, "%s:  success\n", __func__);
+ 
+diff --git a/include/media/gmsl-link.h b/include/media/gmsl-link.h
+index 7dce23563..c643aff6f 100644
+--- a/include/media/gmsl-link.h
++++ b/include/media/gmsl-link.h
+@@ -99,6 +99,7 @@ struct gmsl_link_ctx {
+ 	struct gmsl_stream streams[GMSL_DEV_MAX_NUM_DATA_STREAMS];
+ 	/**< Sensor device handle. */
+ 	struct device *s_dev;
++	__u32 ser_mux; /* 4xMAX9296+8xMAX9295 in one system, FG96-8CH */
+ };
+ 
+ /** @} */

@@ -211,6 +211,7 @@
 								reg = <0x40>;
 								compatible = "maxim,max9295";
 								is-prim-ser;
+								ser-mux = <0>;
 							};
 
 							ser_a: max9295_a@42 {
@@ -264,6 +265,7 @@
 									st-vc = <0>;
 									vc-id = <0>;
 									num-lanes = <2>;
+									ser-mux = <0>;
 								};
 							};
 						};
@@ -319,6 +321,7 @@
 									st-vc = <0>;
 									vc-id = <1>;
 									num-lanes = <2>;
+									ser-mux = <0>;
 								};
 							};
 						};
@@ -374,6 +377,7 @@
 									st-vc = <0>;
 									vc-id = <2>;
 									num-lanes = <2>;
+									ser-mux = <0>;
 								};
 							};
 						};
@@ -428,6 +432,7 @@
 									st-vc = <0>;
 									vc-id = <3>;
 									num-lanes = <2>;
+									ser-mux = <0>;
 								};
 							};
 						};
