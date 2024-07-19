@@ -2829,8 +2829,9 @@ static int ds5_mux_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 	dev_dbg(sd->dev, "%s(): %s (%p)\n", __func__, sd->name, fh);
 	if (state->dfu_dev.dfu_state_flag)
 		return -EBUSY;
+	mutex_lock(&state->lock);
 	state->dfu_dev.device_open_count++;
-
+	mutex_unlock(&state->lock);
 	return 0;
 };
 
@@ -2839,7 +2840,9 @@ static int ds5_mux_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 	struct ds5 *state = v4l2_get_subdevdata(sd);
 
 	dev_dbg(sd->dev, "%s(): %s (%p)\n", __func__, sd->name, fh);
+	mutex_lock(&state->lock);
 	state->dfu_dev.device_open_count--;
+	mutex_unlock(&state->lock);
 	return 0;
 };
 
@@ -5425,6 +5428,7 @@ static int ds5_probe(struct i2c_client *c, const struct i2c_device_id *id)
 #endif
 	if (!state)
 		return -ENOMEM;
+	memset(state, 0, sizeof(*state));
 
 	mutex_init(&state->lock);
 
