@@ -1,0 +1,29 @@
+diff --git a/cvb/tegra234-p3768-0000-a0.dtsi b/cvb/tegra234-p3768-0000-a0.dtsi
+index 95d737541..2f38188ca 100644
+--- a/cvb/tegra234-p3768-0000-a0.dtsi
++++ b/cvb/tegra234-p3768-0000-a0.dtsi
+@@ -16,8 +16,11 @@
+ #include "tegra234-p3768-0000-a0-pcie.dtsi"
+ #include "tegra234-p3768-0000-a0-fixed-regulator.dtsi"
+ #include "tegra234-p3768-audio.dtsi"
+-#include "tegra234-p3768-camera-rbpcv3-imx477.dtsi"
+-#include "tegra234-p3768-camera-rbpcv2-imx219.dtsi"
++/* #include "tegra234-p3768-camera-rbpcv3-imx477.dtsi" */
++/* #include "tegra234-p3768-camera-rbpcv2-imx219.dtsi" */
++#include "tegra234-p3768-camera-d4xx-fg96-2ch-single.dtsi"
++/* #include "tegra234-p3768-camera-d4xx-fg96-2ch-dual-depth-ir.dtsi" */
++/* #include "tegra234-p3768-camera-d4xx-fg96-2ch-dual-depth-color.dtsi" */
+ 
+ / {
+ 	gpio-keys {
+diff --git a/tegra234-p3767-0000-p3768-0000-a0.dts b/tegra234-p3767-0000-p3768-0000-a0.dts
+index 0992d1bd2..278de1a02 100644
+--- a/tegra234-p3767-0000-p3768-0000-a0.dts
++++ b/tegra234-p3767-0000-p3768-0000-a0.dts
+@@ -27,5 +27,5 @@
+ 	nvidia,dtsfilename = __FILE__;
+ 	nvidia,dtbbuildtime = __DATE__, __TIME__;
+ 	compatible = "nvidia,p3768-0000+p3767-0000", "nvidia,p3767-0000", "nvidia,tegra234", "nvidia,tegra23x";
+-	model = "NVIDIA Orin NX Developer Kit";
++	model = "NVIDIA Orin NX Developer Kit FG96-2CH";
+ };

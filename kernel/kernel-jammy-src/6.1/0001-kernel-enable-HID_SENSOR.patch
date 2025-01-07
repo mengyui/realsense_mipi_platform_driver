@@ -1,0 +1,35 @@
+From 0d3461ffac77eff2fac5f5f7261e5f2937d09ebd Mon Sep 17 00:00:00 2001
+From: Dmitry Perchanov <dmitry.perchanov@intel.com>
+Date: Mon, 20 May 2024 18:11:44 +0300
+Subject: [PATCH] kernel: enable HID_SENSOR
+
+Signed-off-by: Dmitry Perchanov <dmitry.perchanov@intel.com>
+---
+ arch/arm64/configs/defconfig | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 6a30dda73..c2ca0f204 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -871,8 +871,16 @@ CONFIG_SND_SOC_LPASS_VA_MACRO=m
+ CONFIG_SND_SIMPLE_CARD=m
+ CONFIG_SND_AUDIO_GRAPH_CARD=m
+ CONFIG_HIDRAW=y
+-CONFIG_UHID=m
++CONFIG_HID=m
++CONFIG_HID_GENERIC=m
+ CONFIG_HID_MULTITOUCH=m
++CONFIG_HID_SENSOR_HUB=m
++CONFIG_HID_SENSOR_IIO_COMMON=m
++CONFIG_HID_SENSOR_IIO_TRIGGER=m
++CONFIG_HID_SENSOR_ACCEL_3D=m
++CONFIG_HID_SENSOR_GYRO_3D=m
++CONFIG_UHID=m
++CONFIG_USB_HID=m
+ CONFIG_I2C_HID_ACPI=m
+ CONFIG_I2C_HID_OF=m
+ CONFIG_USB=y
+-- 
+2.34.1
+

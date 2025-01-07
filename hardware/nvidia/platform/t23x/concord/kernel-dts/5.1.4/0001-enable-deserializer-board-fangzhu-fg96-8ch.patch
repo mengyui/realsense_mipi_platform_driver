@@ -1,0 +1,46 @@
+diff --git a/cvb/tegra234-p3737-fixed-regulator.dtsi b/cvb/tegra234-p3737-fixed-regulator.dtsi
+index 6b7996267..03f2222ee 100644
+--- a/cvb/tegra234-p3737-fixed-regulator.dtsi
++++ b/cvb/tegra234-p3737-fixed-regulator.dtsi
+@@ -161,7 +161,7 @@
+ 			regulator-name = "vdd_sys_en";
+ 			regulator-min-microvolt = <1200000>;
+ 			regulator-max-microvolt = <1200000>;
+-			gpio = <&tegra_main_gpio TEGRA234_MAIN_GPIO(AC, 7) 0>;
++			/*gpio = <&tegra_main_gpio TEGRA234_MAIN_GPIO(AC, 7) 0>; FG96-8CH CAM12V_POC */
+ 			regulator-always-on;
+ 			enable-active-high;
+ 		};
+@@ -172,7 +172,7 @@
+ 			regulator-min-microvolt = <1800000>;
+ 			regulator-max-microvolt = <1800000>;
+ 			vin-supply = <&p3737_vdd_1v8_sys>;
+-			gpio = <&tegra_aon_gpio TEGRA234_AON_GPIO(CC, 2) 0>; //CAM_INT3, GPIO_ACTIVE_HIGH == 0
++			/*gpio = <&tegra_aon_gpio TEGRA234_AON_GPIO(CC, 2) 0>; FG96-8CH Used as Sync Pin*/ //CAM_INT3, GPIO_ACTIVE_HIGH == 0
+ 			enable-active-high;
+ 		};
+ 	};
+diff --git a/tegra234-p3701-0000-p3737-0000.dts b/tegra234-p3701-0000-p3737-0000.dts
+index 4059d66b5..2c710e3eb 100644
+--- a/tegra234-p3701-0000-p3737-0000.dts
++++ b/tegra234-p3701-0000-p3737-0000.dts
+@@ -20,7 +20,9 @@
+ #include "tegra234-power-tree-p3701-0000-p3737-0000.dtsi"
+ #include "tegra234-dcb-p3701-0000-a02-p3737-0000-a01.dtsi"
+ #include <tegra234-soc/mods-simple-bus.dtsi>
+-#include "cvb/tegra234-p3737-camera-modules.dtsi"
++/* #include "cvb/tegra234-p3737-camera-modules.dtsi" */
++#include "cvb/tegra234-p3737-camera-d4xx-fg96-8ch-single.dtsi"
++/* #include "cvb/tegra234-p3737-camera-d4xx-fg96-8ch-dual.dtsi" */
+ #include <t234-common-cvb/tegra234-pwm.dtsi>
+ #include <t234-common-cvm/tegra234-cpuidle.dtsi>
+ #include <t234-common-cvm/tegra234-thermal.dtsi>
+@@ -33,7 +35,7 @@
+ 	nvidia,dtbbuildtime = __DATE__, __TIME__;
+ 
+ 	compatible = "nvidia,p3737-0000+p3701-0000", "nvidia,p3701-0000", "nvidia,tegra234", "nvidia,tegra23x";
+-	model = "Jetson AGX Orin Developer Kit";
++	model = "Jetson AGX Orin Developer Kit FG96-8CH";
+ 
+ 	nvsciipc-kernel {
+ 		compatible = "nvidia,nvsciipc";
