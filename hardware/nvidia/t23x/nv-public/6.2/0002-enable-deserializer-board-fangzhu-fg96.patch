@@ -1,0 +1,15 @@
+diff --git a/overlay/Makefile b/overlay/Makefile
+index c88bbe207..fc3a2f358 100644
+--- a/overlay/Makefile
++++ b/overlay/Makefile
+@@ -67,6 +67,10 @@ dtbo-y += tegra234-p3767-camera-p3768-imx477-C.dtbo
+ dtbo-y += tegra234-p3767-camera-p3768-imx477-A.dtbo
+ dtbo-y += tegra234-camera-d4xx-overlay.dtbo
+ dtbo-y += tegra234-camera-d4xx-overlay-dual.dtbo
++dtbo-y += tegra234-p3737-camera-d4xx-overlay-fg96-8ch-single.dtbo
++dtbo-y += tegra234-p3737-camera-d4xx-overlay-fg96-8ch-dual.dtbo
++dtbo-y += tegra234-p3768-camera-d4xx-overlay-fg96-2ch-single.dtbo
++dtbo-y += tegra234-p3768-camera-d4xx-overlay-fg96-2ch-dual.dtbo
+ 
+ ifneq ($(dtb-y),)
+ dtb-y := $(addprefix $(makefile-path)/,$(dtb-y))
