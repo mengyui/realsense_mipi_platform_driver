@@ -42,6 +42,8 @@
 			tegra-capture-vi{
 				num-channels = <16>;
 				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
 					vi_port0: port@0 {
 						status = "okay";
 						reg = <0>;
@@ -229,6 +231,8 @@
 							status = "okay";
 							reg = <0>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -253,6 +257,8 @@
 							status = "okay";
 							reg = <1>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -277,6 +283,8 @@
 							status = "okay";
 							reg = <2>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -301,6 +309,8 @@
 							status = "okay";
 							reg = <3>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -325,6 +335,8 @@
 							status = "okay";
 							reg = <4>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -349,6 +361,8 @@
 							status = "okay";
 							reg = <5>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -373,6 +387,8 @@
 							status = "okay";
 							reg = <6>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -397,6 +413,8 @@
 							status = "okay";
 							reg = <7>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -421,6 +439,8 @@
 							status = "okay";
 							reg = <8>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -445,6 +465,8 @@
 							status = "okay";
 							reg = <9>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -469,6 +491,8 @@
 							status = "okay";
 							reg = <10>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -493,6 +517,8 @@
 							status = "okay";
 							reg = <11>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -517,6 +543,8 @@
 							status = "okay";
 							reg = <12>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -541,6 +569,8 @@
 							status = "okay";
 							reg = <13>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -565,6 +595,8 @@
 							status = "okay";
 							reg = <14>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -589,6 +621,8 @@
 							status = "okay";
 							reg = <15>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -657,74 +691,27 @@
 								compatible = "maxim,max9295";
 								maxim,gmsl-dser-device = <&dser0>;
 							};
-							d4m0: d4m@20 {
+							d4m3: d4m@25 {
 								status = "okay";
-								reg = <0x20>;
-								def-addr = <0x10>;
-								compatible = "intel,d4xx";
-								vcc-supply = <&vdd_1v8_ls>;
-								use_sensor_mode_id = "true";
-								cam-type = "Depth";
-								maxim,gmsl-ser-device = <&ser0_a>;
-								maxim,gmsl-dser-device = <&dser0>;
-								intel,d4m-mux-device = <&d4m1>;
-								ports {
-									#address-cells = <1>;
-									#size-cells = <0>;
-									port@0 {
-										reg = <0>;
-										d4m0_out: endpoint {
-											port-index = <0>;
-											bus-width = <2>;
-											vc-id = <0>;
-											remote-endpoint = <&d4xx_csi_in0>;
-										};
-									};
-								};
-								mode0 {
-									pixel_t = "grey_y16";
-									num_lanes = "2";
-									csi_pixel_bit_depth = "16";
-									active_w = "1280";
-									active_h = "720";
-									tegra_sinterface = "serial_a";
-									mclk_khz = "24000";
-									pix_clk_hz = "74250000";
-									line_length = "1280";
-									embedded_metadata_height = "1";
-								};
-								gmsl-link {
-									src-csi-port = "b";
-									dst-csi-port = "a";
-									serdes-csi-link = "a";
-									csi-mode = "1x4";
-									st-vc = <0>;
-									vc-id = <0>;
-									num-lanes = <2>;
-									ser-mux = <0>;
-								};
-							};
-							d4m1: d4m@21 {
-								status = "okay";
-								reg = <0x21>;
+								reg = <0x25>;
 								def-addr = <0x10>;
 								compatible = "intel,d4xx";
 								vcc-supply = <&vdd_1v8_ls>;
 								use_sensor_mode_id = "true";
 								cam-type = "RGB";
-								maxim,gmsl-ser-device = <&ser0_a>;
+								maxim,gmsl-ser-device = <&ser0_b>;
 								maxim,gmsl-dser-device = <&dser0>;
-								intel,d4m-mux-device = <&d4m1>;
+								intel,d4m-mux-device = <&d4m2>;
 								ports {
 									#address-cells = <1>;
 									#size-cells = <0>;
 									port@0 {
 										reg = <0>;
-										d4m1_out: endpoint {
+										d4m3_out: endpoint {
 											port-index = <0>;
 											bus-width = <2>;
-											vc-id = <1>;
-											remote-endpoint = <&d4xx_csi_in1>;
+											vc-id = <3>;
+											remote-endpoint = <&d4xx_csi_in3>;
 										};
 									};
 								};
@@ -737,16 +724,16 @@
 									tegra_sinterface = "serial_a";
 									mclk_khz = "24000";
 									pix_clk_hz = "74250000";
-									line_length = "1280";
+									line_length = "1280"; /* 2200 */
 									embedded_metadata_height = "1";
 								};
 								gmsl-link {
 									src-csi-port = "b";
 									dst-csi-port = "a";
-									serdes-csi-link = "a";
+									serdes-csi-link = "b";
 									csi-mode = "1x4";
 									st-vc = <0>;
-									vc-id = <1>;
+									vc-id = <3>;
 									num-lanes = <2>;
 									ser-mux = <0>;
 								};
@@ -761,7 +748,7 @@
 								cam-type = "Depth";
 								maxim,gmsl-ser-device = <&ser0_b>;
 								maxim,gmsl-dser-device = <&dser0>;
-								intel,d4m-mux-device = <&d4m3>;
+								intel,d4m-mux-device = <&d4m2>;
 								ports {
 									#address-cells = <1>;
 									#size-cells = <0>;
@@ -798,28 +785,27 @@
 									ser-mux = <0>;
 								};
 							};
-							d4m3: d4m@25 {
+							d4m1: d4m@21 {
 								status = "okay";
-								reg = <0x25>;
+								reg = <0x21>;
 								def-addr = <0x10>;
 								compatible = "intel,d4xx";
 								vcc-supply = <&vdd_1v8_ls>;
 								use_sensor_mode_id = "true";
 								cam-type = "RGB";
-								maxim,gmsl-ser-device = <&ser0_b>;
+								maxim,gmsl-ser-device = <&ser0_a>;
 								maxim,gmsl-dser-device = <&dser0>;
-								intel,d4m-mux-device = <&d4m3>;
+								intel,d4m-mux-device = <&d4m0>;
 								ports {
 									#address-cells = <1>;
 									#size-cells = <0>;
-
 									port@0 {
 										reg = <0>;
-										d4m3_out: endpoint {
+										d4m1_out: endpoint {
 											port-index = <0>;
 											bus-width = <2>;
-											vc-id = <3>;
-											remote-endpoint = <&d4xx_csi_in3>;
+											vc-id = <1>;
+											remote-endpoint = <&d4xx_csi_in1>;
 										};
 									};
 								};
@@ -832,16 +818,63 @@
 									tegra_sinterface = "serial_a";
 									mclk_khz = "24000";
 									pix_clk_hz = "74250000";
-									line_length = "1280"; /* 2200 */
+									line_length = "1280";
 									embedded_metadata_height = "1";
 								};
 								gmsl-link {
 									src-csi-port = "b";
 									dst-csi-port = "a";
-									serdes-csi-link = "b";
+									serdes-csi-link = "a";
 									csi-mode = "1x4";
 									st-vc = <0>;
-									vc-id = <3>;
+									vc-id = <1>;
+									num-lanes = <2>;
+									ser-mux = <0>;
+								};
+							};
+							d4m0: d4m@20 {
+								status = "okay";
+								reg = <0x20>;
+								def-addr = <0x10>;
+								compatible = "intel,d4xx";
+								vcc-supply = <&vdd_1v8_ls>;
+								use_sensor_mode_id = "true";
+								cam-type = "Depth";
+								maxim,gmsl-ser-device = <&ser0_a>;
+								maxim,gmsl-dser-device = <&dser0>;
+								intel,d4m-mux-device = <&d4m0>;
+								ports {
+									#address-cells = <1>;
+									#size-cells = <0>;
+									port@0 {
+										reg = <0>;
+										d4m0_out: endpoint {
+											port-index = <0>;
+											bus-width = <2>;
+											vc-id = <0>;
+											remote-endpoint = <&d4xx_csi_in0>;
+										};
+									};
+								};
+								mode0 {
+									pixel_t = "grey_y16";
+									num_lanes = "2";
+									csi_pixel_bit_depth = "16";
+									active_w = "1280";
+									active_h = "720";
+									tegra_sinterface = "serial_a";
+									mclk_khz = "24000";
+									pix_clk_hz = "74250000";
+									line_length = "1280";
+									embedded_metadata_height = "1";
+								};
+								gmsl-link {
+									src-csi-port = "b";
+									dst-csi-port = "a";
+									serdes-csi-link = "a";
+									csi-mode = "1x4";
+									st-vc = <0>;
+									vc-id = <0>;
 									num-lanes = <2>;
 									ser-mux = <0>;
 								};
@@ -877,74 +910,27 @@
 								compatible = "maxim,max9295";
 								maxim,gmsl-dser-device = <&dser1>;
 							};
-							d4m4: d4m@28 {
+							d4m7: d4m@2d {
 								status = "okay";
-								reg = <0x28>;
-								def-addr = <0x10>;
-								compatible = "intel,d4xx";
-								vcc-supply = <&vdd_1v8_ls>;
-								use_sensor_mode_id = "true";
-								cam-type = "Depth";
-								maxim,gmsl-ser-device = <&ser1_a>;
-								maxim,gmsl-dser-device = <&dser1>;
-								intel,d4m-mux-device = <&d4m5>;
-								ports {
-									#address-cells = <1>;
-									#size-cells = <0>;
-									port@0 {
-										reg = <0>;
-										d4m4_out: endpoint {
-											port-index = <2>;
-											bus-width = <2>;
-											vc-id = <0>;
-											remote-endpoint = <&d4xx_csi_in4>;
-										};
-									};
-								};
-								mode0 {
-									pixel_t = "grey_y16";
-									num_lanes = "2";
-									csi_pixel_bit_depth = "16";
-									active_w = "1280";
-									active_h = "720";
-									tegra_sinterface = "serial_c";
-									mclk_khz = "24000";
-									pix_clk_hz = "74250000";
-									line_length = "1280";
-									embedded_metadata_height = "1";
-								};
-								gmsl-link {
-									src-csi-port = "b";
-									dst-csi-port = "a";
-									serdes-csi-link = "a";
-									csi-mode = "1x4";
-									st-vc = <0>;
-									vc-id = <0>;
-									num-lanes = <2>;
-									ser-mux = <1>;
-								};
-							};
-							d4m5: d4m@29 {
-								status = "okay";
-								reg = <0x29>;
+								reg = <0x2d>;
 								def-addr = <0x10>;
 								compatible = "intel,d4xx";
 								vcc-supply = <&vdd_1v8_ls>;
 								use_sensor_mode_id = "true";
 								cam-type = "RGB";
-								maxim,gmsl-ser-device = <&ser1_a>;
+								maxim,gmsl-ser-device = <&ser1_b>;
 								maxim,gmsl-dser-device = <&dser1>;
-								intel,d4m-mux-device = <&d4m5>;
+								intel,d4m-mux-device = <&d4m6>;
 								ports {
 									#address-cells = <1>;
 									#size-cells = <0>;
 									port@0 {
 										reg = <0>;
-										d4m5_out: endpoint {
+										d4m7_out: endpoint {
 											port-index = <2>;
 											bus-width = <2>;
-											vc-id = <1>;
-											remote-endpoint = <&d4xx_csi_in5>;
+											vc-id = <3>;
+											remote-endpoint = <&d4xx_csi_in7>;
 										};
 									};
 								};
@@ -963,10 +949,10 @@
 								gmsl-link {
 									src-csi-port = "b";
 									dst-csi-port = "a";
-									serdes-csi-link = "a";
+									serdes-csi-link = "b";
 									csi-mode = "1x4";
 									st-vc = <0>;
-									vc-id = <1>;
+									vc-id = <3>;
 									num-lanes = <2>;
 									ser-mux = <1>;
 								};
@@ -981,7 +967,7 @@
 								cam-type = "Depth";
 								maxim,gmsl-ser-device = <&ser1_b>;
 								maxim,gmsl-dser-device = <&dser1>;
-								intel,d4m-mux-device = <&d4m7>;
+								intel,d4m-mux-device = <&d4m6>;
 								ports {
 									#address-cells = <1>;
 									#size-cells = <0>;
@@ -1018,28 +1004,27 @@
 									ser-mux = <1>;
 								};
 							};
-							d4m7: d4m@2d {
+							d4m5: d4m@29 {
 								status = "okay";
-								reg = <0x2d>;
+								reg = <0x29>;
 								def-addr = <0x10>;
 								compatible = "intel,d4xx";
 								vcc-supply = <&vdd_1v8_ls>;
 								use_sensor_mode_id = "true";
 								cam-type = "RGB";
-								maxim,gmsl-ser-device = <&ser1_b>;
+								maxim,gmsl-ser-device = <&ser1_a>;
 								maxim,gmsl-dser-device = <&dser1>;
-								intel,d4m-mux-device = <&d4m7>;
+								intel,d4m-mux-device = <&d4m4>;
 								ports {
 									#address-cells = <1>;
 									#size-cells = <0>;
-
 									port@0 {
 										reg = <0>;
-										d4m7_out: endpoint {
+										d4m5_out: endpoint {
 											port-index = <2>;
 											bus-width = <2>;
-											vc-id = <3>;
-											remote-endpoint = <&d4xx_csi_in7>;
+											vc-id = <1>;
+											remote-endpoint = <&d4xx_csi_in5>;
 										};
 									};
 								};
@@ -1058,10 +1043,57 @@
 								gmsl-link {
 									src-csi-port = "b";
 									dst-csi-port = "a";
-									serdes-csi-link = "b";
+									serdes-csi-link = "a";
 									csi-mode = "1x4";
 									st-vc = <0>;
-									vc-id = <3>;
+									vc-id = <1>;
+									num-lanes = <2>;
+									ser-mux = <1>;
+								};
+							};
+							d4m4: d4m@28 {
+								status = "okay";
+								reg = <0x28>;
+								def-addr = <0x10>;
+								compatible = "intel,d4xx";
+								vcc-supply = <&vdd_1v8_ls>;
+								use_sensor_mode_id = "true";
+								cam-type = "Depth";
+								maxim,gmsl-ser-device = <&ser1_a>;
+								maxim,gmsl-dser-device = <&dser1>;
+								intel,d4m-mux-device = <&d4m4>;
+								ports {
+									#address-cells = <1>;
+									#size-cells = <0>;
+									port@0 {
+										reg = <0>;
+										d4m4_out: endpoint {
+											port-index = <2>;
+											bus-width = <2>;
+											vc-id = <0>;
+											remote-endpoint = <&d4xx_csi_in4>;
+										};
+									};
+								};
+								mode0 {
+									pixel_t = "grey_y16";
+									num_lanes = "2";
+									csi_pixel_bit_depth = "16";
+									active_w = "1280";
+									active_h = "720";
+									tegra_sinterface = "serial_c";
+									mclk_khz = "24000";
+									pix_clk_hz = "74250000";
+									line_length = "1280";
+									embedded_metadata_height = "1";
+								};
+								gmsl-link {
+									src-csi-port = "b";
+									dst-csi-port = "a";
+									serdes-csi-link = "a";
+									csi-mode = "1x4";
+									st-vc = <0>;
+									vc-id = <0>;
 									num-lanes = <2>;
 									ser-mux = <1>;
 								};
@@ -1097,148 +1129,6 @@
 								compatible = "maxim,max9295";
 								maxim,gmsl-dser-device = <&dser2>;
 							};
-							d4m8: d4m@30 {
-								status = "okay";
-								reg = <0x30>;
-								def-addr = <0x10>;
-								compatible = "intel,d4xx";
-								vcc-supply = <&vdd_1v8_ls>;
-								use_sensor_mode_id = "true";
-								cam-type = "Depth";
-								maxim,gmsl-ser-device = <&ser2_a>;
-								maxim,gmsl-dser-device = <&dser2>;
-								intel,d4m-mux-device = <&d4m9>;
-								ports {
-									#address-cells = <1>;
-									#size-cells = <0>;
-
-									port@0 {
-										reg = <0>;
-										d4m8_out: endpoint {
-											port-index = <4>;
-											bus-width = <2>;
-											vc-id = <0>;
-											remote-endpoint = <&d4xx_csi_in8>;
-										};
-									};
-								};
-								mode0 {
-									pixel_t = "grey_y16";
-									num_lanes = "2";
-									csi_pixel_bit_depth = "16";
-									active_w = "1280";
-									active_h = "720";
-									tegra_sinterface = "serial_e";
-									mclk_khz = "24000";
-									pix_clk_hz = "74250000";
-									line_length = "1280";
-									embedded_metadata_height = "1";
-								};
-								gmsl-link {
-									src-csi-port = "b";
-									dst-csi-port = "a";
-									serdes-csi-link = "a";
-									csi-mode = "1x4";
-									st-vc = <0>;
-									vc-id = <0>;
-									num-lanes = <2>;
-									ser-mux = <2>;
-								};
-							};
-							d4m9: d4m@31 {
-								status = "okay";
-								reg = <0x31>;
-								def-addr = <0x10>;
-								compatible = "intel,d4xx";
-								vcc-supply = <&vdd_1v8_ls>;
-								use_sensor_mode_id = "true";
-								cam-type = "RGB";
-								maxim,gmsl-ser-device = <&ser2_a>;
-								maxim,gmsl-dser-device = <&dser2>;
-								intel,d4m-mux-device = <&d4m9>;
-								ports {
-									#address-cells = <1>;
-									#size-cells = <0>;
-									port@0 {
-										reg = <0>;
-										d4m9_out: endpoint {
-											port-index = <4>;
-											bus-width = <2>;
-											vc-id = <1>;
-											remote-endpoint = <&d4xx_csi_in9>;
-										};
-									};
-								};
-								mode0 {
-									pixel_t = "grey_y16";
-									num_lanes = "2";
-									csi_pixel_bit_depth = "16";
-									active_w = "1920";
-									active_h = "1080";
-									tegra_sinterface = "serial_e";
-									mclk_khz = "24000";
-									pix_clk_hz = "74250000";
-									line_length = "1280";
-									embedded_metadata_height = "1";
-								};
-								gmsl-link {
-									src-csi-port = "b";
-									dst-csi-port = "a";
-									serdes-csi-link = "a";
-									csi-mode = "1x4";
-									st-vc = <0>;
-									vc-id = <1>;
-									num-lanes = <2>;
-									ser-mux = <2>;
-								};
-							};
-							d4m10: d4m@34 {
-								status = "okay";
-								reg = <0x34>;
-								def-addr = <0x10>;
-								compatible = "intel,d4xx";
-								vcc-supply = <&vdd_1v8_ls>;
-								use_sensor_mode_id = "true";
-								cam-type = "Depth";
-								maxim,gmsl-ser-device = <&ser2_b>;
-								maxim,gmsl-dser-device = <&dser2>;
-								intel,d4m-mux-device = <&d4m11>;
-								ports {
-									#address-cells = <1>;
-									#size-cells = <0>;
-									port@0 {
-										reg = <0>;
-										d4m10_out: endpoint {
-											port-index = <4>;
-											bus-width = <2>;
-											vc-id = <2>;
-											remote-endpoint = <&d4xx_csi_in10>;
-										};
-									};
-								};
-								mode0 {
-									pixel_t = "grey_y16";
-									num_lanes = "2";
-									csi_pixel_bit_depth = "16";
-									active_w = "1280";
-									active_h = "720";
-									tegra_sinterface = "serial_e";
-									mclk_khz = "24000";
-									pix_clk_hz = "74250000";
-									line_length = "1280";
-									embedded_metadata_height = "1";
-								};
-								gmsl-link {
-									src-csi-port = "b";
-									dst-csi-port = "a";
-									serdes-csi-link = "b";
-									csi-mode = "1x4";
-									st-vc = <0>;
-									vc-id = <2>;
-									num-lanes = <2>;
-									ser-mux = <2>;
-								};
-							};
 							d4m11: d4m@35 {
 								status = "okay";
 								reg = <0x35>;
@@ -1249,7 +1139,7 @@
 								cam-type = "RGB";
 								maxim,gmsl-ser-device = <&ser2_b>;
 								maxim,gmsl-dser-device = <&dser2>;
-								intel,d4m-mux-device = <&d4m11>;
+								intel,d4m-mux-device = <&d4m10>;
 								ports {
 									#address-cells = <1>;
 									#size-cells = <0>;
@@ -1286,6 +1176,147 @@
 									ser-mux = <2>;
 								};
 							};
+							d4m10: d4m@34 {
+								status = "okay";
+								reg = <0x34>;
+								def-addr = <0x10>;
+								compatible = "intel,d4xx";
+								vcc-supply = <&vdd_1v8_ls>;
+								use_sensor_mode_id = "true";
+								cam-type = "Depth";
+								maxim,gmsl-ser-device = <&ser2_b>;
+								maxim,gmsl-dser-device = <&dser2>;
+								intel,d4m-mux-device = <&d4m10>;
+								ports {
+									#address-cells = <1>;
+									#size-cells = <0>;
+									port@0 {
+										reg = <0>;
+										d4m10_out: endpoint {
+											port-index = <4>;
+											bus-width = <2>;
+											vc-id = <2>;
+											remote-endpoint = <&d4xx_csi_in10>;
+										};
+									};
+								};
+								mode0 {
+									pixel_t = "grey_y16";
+									num_lanes = "2";
+									csi_pixel_bit_depth = "16";
+									active_w = "1280";
+									active_h = "720";
+									tegra_sinterface = "serial_e";
+									mclk_khz = "24000";
+									pix_clk_hz = "74250000";
+									line_length = "1280";
+									embedded_metadata_height = "1";
+								};
+								gmsl-link {
+									src-csi-port = "b";
+									dst-csi-port = "a";
+									serdes-csi-link = "b";
+									csi-mode = "1x4";
+									st-vc = <0>;
+									vc-id = <2>;
+									num-lanes = <2>;
+									ser-mux = <2>;
+								};
+							};
+							d4m9: d4m@31 {
+								status = "okay";
+								reg = <0x31>;
+								def-addr = <0x10>;
+								compatible = "intel,d4xx";
+								vcc-supply = <&vdd_1v8_ls>;
+								use_sensor_mode_id = "true";
+								cam-type = "RGB";
+								maxim,gmsl-ser-device = <&ser2_a>;
+								maxim,gmsl-dser-device = <&dser2>;
+								intel,d4m-mux-device = <&d4m8>;
+								ports {
+									#address-cells = <1>;
+									#size-cells = <0>;
+									port@0 {
+										reg = <0>;
+										d4m9_out: endpoint {
+											port-index = <4>;
+											bus-width = <2>;
+											vc-id = <1>;
+											remote-endpoint = <&d4xx_csi_in9>;
+										};
+									};
+								};
+								mode0 {
+									pixel_t = "grey_y16";
+									num_lanes = "2";
+									csi_pixel_bit_depth = "16";
+									active_w = "1920";
+									active_h = "1080";
+									tegra_sinterface = "serial_e";
+									mclk_khz = "24000";
+									pix_clk_hz = "74250000";
+									line_length = "1280";
+									embedded_metadata_height = "1";
+								};
+								gmsl-link {
+									src-csi-port = "b";
+									dst-csi-port = "a";
+									serdes-csi-link = "a";
+									csi-mode = "1x4";
+									st-vc = <0>;
+									vc-id = <1>;
+									num-lanes = <2>;
+									ser-mux = <2>;
+								};
+							};
+							d4m8: d4m@30 {
+								status = "okay";
+								reg = <0x30>;
+								def-addr = <0x10>;
+								compatible = "intel,d4xx";
+								vcc-supply = <&vdd_1v8_ls>;
+								use_sensor_mode_id = "true";
+								cam-type = "Depth";
+								maxim,gmsl-ser-device = <&ser2_a>;
+								maxim,gmsl-dser-device = <&dser2>;
+								intel,d4m-mux-device = <&d4m8>;
+								ports {
+									#address-cells = <1>;
+									#size-cells = <0>;
+									port@0 {
+										reg = <0>;
+										d4m8_out: endpoint {
+											port-index = <4>;
+											bus-width = <2>;
+											vc-id = <0>;
+											remote-endpoint = <&d4xx_csi_in8>;
+										};
+									};
+								};
+								mode0 {
+									pixel_t = "grey_y16";
+									num_lanes = "2";
+									csi_pixel_bit_depth = "16";
+									active_w = "1280";
+									active_h = "720";
+									tegra_sinterface = "serial_e";
+									mclk_khz = "24000";
+									pix_clk_hz = "74250000";
+									line_length = "1280";
+									embedded_metadata_height = "1";
+								};
+								gmsl-link {
+									src-csi-port = "b";
+									dst-csi-port = "a";
+									serdes-csi-link = "a";
+									csi-mode = "1x4";
+									st-vc = <0>;
+									vc-id = <0>;
+									num-lanes = <2>;
+									ser-mux = <2>;
+								};
+							};
 						};
 
 						i2c@3 {
@@ -1317,75 +1348,27 @@
 								compatible = "maxim,max9295";
 								maxim,gmsl-dser-device = <&dser3>;
 							};
-							d4m12: d4m@38 {
+							d4m15: d4m@3d {
 								status = "okay";
-								reg = <0x38>;
-								def-addr = <0x10>;
-								compatible = "intel,d4xx";
-								vcc-supply = <&vdd_1v8_ls>;
-								use_sensor_mode_id = "true";
-								cam-type = "Depth";
-								maxim,gmsl-ser-device = <&ser3_a>;
-								maxim,gmsl-dser-device = <&dser3>;
-								intel,d4m-mux-device = <&d4m13>;
-								ports {
-									#address-cells = <1>;
-									#size-cells = <0>;
-
-									port@0 {
-										reg = <0>;
-										d4m12_out: endpoint {
-											port-index = <5>;
-											bus-width = <2>;
-											vc-id = <0>;
-											remote-endpoint = <&d4xx_csi_in12>;
-										};
-									};
-								};
-								mode0 {
-									pixel_t = "grey_y16";
-									num_lanes = "2";
-									csi_pixel_bit_depth = "16";
-									active_w = "1280";
-									active_h = "720";
-									tegra_sinterface = "serial_g";
-									mclk_khz = "24000";
-									pix_clk_hz = "74250000";
-									line_length = "1280";
-									embedded_metadata_height = "1";
-								};
-								gmsl-link {
-									src-csi-port = "b";
-									dst-csi-port = "a";
-									serdes-csi-link = "a";
-									csi-mode = "1x4";
-									st-vc = <0>;
-									vc-id = <0>;
-									num-lanes = <2>;
-									ser-mux = <3>;
-								};
-							};
-							d4m13: d4m@39 {
-								status = "okay";
-								reg = <0x39>;
+								reg = <0x3d>;
 								def-addr = <0x10>;
 								compatible = "intel,d4xx";
 								vcc-supply = <&vdd_1v8_ls>;
 								use_sensor_mode_id = "true";
 								cam-type = "RGB";
-								maxim,gmsl-ser-device = <&ser3_a>;
+								maxim,gmsl-ser-device = <&ser3_b>;
 								maxim,gmsl-dser-device = <&dser3>;
-								intel,d4m-mux-device = <&d4m13>;
+								intel,d4m-mux-device = <&d4m14>;
 								ports {
 									#address-cells = <1>;
 									#size-cells = <0>;
 									port@0 {
 										reg = <0>;
-										d4m13_out: endpoint {
+										d4m15_out: endpoint {
 											port-index = <5>;
 											bus-width = <2>;
-											vc-id = <1>;
-											remote-endpoint = <&d4xx_csi_in13>;
+											vc-id = <3>;
+											remote-endpoint = <&d4xx_csi_in15>;
 										};
 									};
 								};
@@ -1404,10 +1387,10 @@
 								gmsl-link {
 									src-csi-port = "b";
 									dst-csi-port = "a";
-									serdes-csi-link = "a";
+									serdes-csi-link = "b";
 									csi-mode = "1x4";
 									st-vc = <0>;
-									vc-id = <1>;
+									vc-id = <3>;
 									num-lanes = <2>;
 									ser-mux = <3>;
 								};
@@ -1422,7 +1405,7 @@
 								cam-type = "Depth";
 								maxim,gmsl-ser-device = <&ser3_b>;
 								maxim,gmsl-dser-device = <&dser3>;
-								intel,d4m-mux-device = <&d4m15>;
+								intel,d4m-mux-device = <&d4m14>;
 								ports {
 									#address-cells = <1>;
 									#size-cells = <0>;
@@ -1459,27 +1442,27 @@
 									ser-mux = <3>;
 								};
 							};
-							d4m15: d4m@3d {
+							d4m13: d4m@39 {
 								status = "okay";
-								reg = <0x3d>;
+								reg = <0x39>;
 								def-addr = <0x10>;
 								compatible = "intel,d4xx";
 								vcc-supply = <&vdd_1v8_ls>;
 								use_sensor_mode_id = "true";
 								cam-type = "RGB";
-								maxim,gmsl-ser-device = <&ser3_b>;
+								maxim,gmsl-ser-device = <&ser3_a>;
 								maxim,gmsl-dser-device = <&dser3>;
-								intel,d4m-mux-device = <&d4m15>;
+								intel,d4m-mux-device = <&d4m12>;
 								ports {
 									#address-cells = <1>;
 									#size-cells = <0>;
 									port@0 {
 										reg = <0>;
-										d4m15_out: endpoint {
+										d4m13_out: endpoint {
 											port-index = <5>;
 											bus-width = <2>;
-											vc-id = <3>;
-											remote-endpoint = <&d4xx_csi_in15>;
+											vc-id = <1>;
+											remote-endpoint = <&d4xx_csi_in13>;
 										};
 									};
 								};
@@ -1498,10 +1481,57 @@
 								gmsl-link {
 									src-csi-port = "b";
 									dst-csi-port = "a";
-									serdes-csi-link = "b";
+									serdes-csi-link = "a";
 									csi-mode = "1x4";
 									st-vc = <0>;
-									vc-id = <3>;
+									vc-id = <1>;
+									num-lanes = <2>;
+									ser-mux = <3>;
+								};
+							};
+							d4m12: d4m@38 {
+								status = "okay";
+								reg = <0x38>;
+								def-addr = <0x10>;
+								compatible = "intel,d4xx";
+								vcc-supply = <&vdd_1v8_ls>;
+								use_sensor_mode_id = "true";
+								cam-type = "Depth";
+								maxim,gmsl-ser-device = <&ser3_a>;
+								maxim,gmsl-dser-device = <&dser3>;
+								intel,d4m-mux-device = <&d4m12>;
+								ports {
+									#address-cells = <1>;
+									#size-cells = <0>;
+									port@0 {
+										reg = <0>;
+										d4m12_out: endpoint {
+											port-index = <5>;
+											bus-width = <2>;
+											vc-id = <0>;
+											remote-endpoint = <&d4xx_csi_in12>;
+										};
+									};
+								};
+								mode0 {
+									pixel_t = "grey_y16";
+									num_lanes = "2";
+									csi_pixel_bit_depth = "16";
+									active_w = "1280";
+									active_h = "720";
+									tegra_sinterface = "serial_g";
+									mclk_khz = "24000";
+									pix_clk_hz = "74250000";
+									line_length = "1280";
+									embedded_metadata_height = "1";
+								};
+								gmsl-link {
+									src-csi-port = "b";
+									dst-csi-port = "a";
+									serdes-csi-link = "a";
+									csi-mode = "1x4";
+									st-vc = <0>;
+									vc-id = <0>;
 									num-lanes = <2>;
 									ser-mux = <3>;
 								};

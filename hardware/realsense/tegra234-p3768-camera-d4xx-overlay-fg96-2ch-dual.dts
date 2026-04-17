@@ -24,6 +24,8 @@
 			tegra-capture-vi {
 				num-channels = <8>;
 				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
 					vi_port0: port@0 {
 						status = "okay";
 						reg = <0>;
@@ -123,6 +125,8 @@
 							status = "okay";
 							reg = <0>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -147,6 +151,8 @@
 							status = "okay";
 							reg = <1>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -171,6 +177,8 @@
 							status = "okay";
 							reg = <2>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -195,6 +203,8 @@
 							status = "okay";
 							reg = <3>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -219,6 +229,8 @@
 							status = "okay";
 							reg = <4>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -243,6 +255,8 @@
 							status = "okay";
 							reg = <5>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -267,6 +281,8 @@
 							status = "okay";
 							reg = <6>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
@@ -291,6 +307,8 @@
 							status = "okay";
 							reg = <7>;
 							ports {
+								#address-cells = <1>;
+								#size-cells = <0>;
 								port@0 {
 									status = "okay";
 									reg = <0>;
