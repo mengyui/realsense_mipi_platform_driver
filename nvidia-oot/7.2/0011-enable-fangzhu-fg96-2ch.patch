@@ -1,0 +1,21 @@
+diff --git a/nvidia-oot/drivers/media/i2c/max9296.c b/nvidia-oot/drivers/media/i2c/max9296.c
+index 1ceaf3cd5..983cf1211 100644
+--- a/nvidia-oot/drivers/media/i2c/max9296.c
++++ b/nvidia-oot/drivers/media/i2c/max9296.c
+@@ -887,6 +1106,16 @@ static int max9296_probe(struct i2c_client *client,
+ 	mutex_init(&priv->lock);
+ 
+ 	dev_set_drvdata(&client->dev, priv);
++	
++	if (of_get_property(client->dev.of_node, "fangzhu,fg96-2ch-enable", NULL)) {
++		err = max9296_power_on(&client->dev);
++		max9296_write_reg(&client->dev, 0x02bc, 0x90);
++		msleep(10);
++		max9296_write_reg(&client->dev, 0x02bc, 0x80);
++		max9296_write_reg(&client->dev, 0x02bd, 0x84);
++		max9296_write_reg(&client->dev, 0x0005, 0x80);
++		msleep(50);
++	}
+ 
+ 	/* dev communication gets validated when GMSL link setup is done */
+ 	dev_info(&client->dev, "%s:  success\n", __func__);
