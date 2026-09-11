@@ -1,0 +1,41 @@
+// SPDX-License-Identifier: GPL-2.0-only
+// SPDX-FileCopyrightText: Copyright (c) 2018-2026, REALSENSEAI.  All rights reserved.
+
+/dts-v1/;
+/plugin/;
+
+#include <dt-bindings/gpio/tegra264-gpio.h>
+#include <dt-bindings/pinctrl/pinctrl-tegra.h>
+
+/* camera control gpio definitions */
+/ {
+	overlay-name = "Thor enable I2C-9";
+	jetson-header-name = "Jetson 22pin CSI Connector";
+	compatible = "nvidia,p4071-0000+p3834-0008", "nvidia,p3834-0008", "nvidia,tegra264";
+
+	fragment@1 {
+		target = <&padctl_main>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&jetson_io_pinmux>;
+
+			jetson_io_pinmux: exp-header-pinmux {
+				// enable i2c9 pinmux
+				gen9_i2c_scl_pg3 {
+					nvidia,pins = "gen9_i2c_scl_pg3";
+					nvidia,function = "i2c9_clk";
+					nvidia,pull = <TEGRA_PIN_PULL_NONE>;
+					nvidia,tristate = <TEGRA_PIN_DISABLE>;
+					nvidia,enable-input = <TEGRA_PIN_ENABLE>;
+				};
+				gen9_i2c_sda_pg4 {
+					nvidia,pins = "gen9_i2c_sda_pg4";
+					nvidia,function = "i2c9_dat";
+					nvidia,pull = <TEGRA_PIN_PULL_NONE>;
+					nvidia,tristate = <TEGRA_PIN_DISABLE>;
+					nvidia,enable-input = <TEGRA_PIN_ENABLE>;
+				};
+			};
+		};
+	};
+};
